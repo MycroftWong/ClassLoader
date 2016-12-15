@@ -28,7 +28,8 @@ ClassLoader是什么。.class是以文件的方式存在，程序运行，必然
 
 ## ClassLoader加载过程
 
-详细加载过程参考文章[java笔记--理解java类加载器以及ClassLoader类](http://www.cnblogs.com/fingerboy/p/5456371.html)
+详细加载过程参考文章[java笔记--理解java类加载器以及ClassLoader类](http://www.cnblogs.com/fingerboy/p/5456371.html), [《深入理解Java虚拟机-JVM高级特性与最佳实践》学习总结（第七章）](http://www.jianshu.com/p/2c99e6df2e75)
+
 
 ClassLoader本身的理解参考文章[Java类加载器深入理解](http://www.codeceo.com/article/java-classloader-learn.html)，同时参考本Demo的示例代码。
 
@@ -46,6 +47,15 @@ DexClassLoader可以用于加载从jar, apk（其中需要包含dex文件）中�
 从上面我们就可以看出，DexClassLoader适用于Android平台的动态加载。
 
 除了Android平台，其他平台也会重写ClassLoader, 如Tomcat，它也有两种ClassLoader, CatalinaClassLoader用于加载Tomcat服务器相关的类。WebappClassLoader则用于加载Web应用的类。相对于Android平台需要将.class转换成.dx, Tomcat则更接近于Java本身，使用起来也相对来说更加简单方便。
+
+
+## 关于双亲委派模型
+
+在英文中双亲委派是 Parental Assignment, 直接翻译应该是“家长委派”，更高的翻译应该是“委托家长”。实际的意思就是，ClassLoader如果有“父类”，则类加载任务首先交由“父类”加载，如果“父类”也有它的“父类”，则往上递推。如果加载成功，则直接返回，如果“父类”加载失败，则自己进行加载。如果自己也不能加载，则抛出异常。
+
+双亲委派比较有迷惑性。实际上只有一个“父类”而已。
+
+注意这里的“父类”实际上不具有继承关系，而是使用组合的方式。
 
 ## TODO
 

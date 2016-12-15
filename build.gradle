@@ -17,7 +17,8 @@ dependencies {
 task makeJar(type: Jar) {
     from('build/classes/main/')
     into('/')
-    include('com/mycroft/safe/User.class')
+//    include('com/mycroft/safe/User.class')
+    include('java/lang/Object.class')
 }
 
 
